@@ -17,7 +17,7 @@
 # for the organisations in the Fabric network.
 
 #REPODIR points to this repo.
-REPODIR=~/Documents/apps/non-profit-blockchain
+REPODIR=~/Documents/apps/octank-investment-funding-portal
 
 #CERTDIR points to the location of the fabric-samples repo. If you are using this to run Fabric, the crypto information
 #would have been generated in the first-network/crypto-config folder.

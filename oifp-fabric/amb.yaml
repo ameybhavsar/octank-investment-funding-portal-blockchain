@@ -59,11 +59,11 @@ Parameters:
     AllowedPattern: "^[0-9a-zA-Z]+$"
     ConstraintDescription: Network name must be alphanumeric and cannot contain spaces.
     Type: String
-    Default: ngo
+    Default: oifp
   NetworkDescription:
     Description: An optional description of your network.
     Type: String
-    Default: Network for tracking donations made to non-profit organisations
+    Default: Network for octank investment funding portal
   Framework:
     Description: The blockchain protocol to use, such as Hyperledger Fabric
     Type: String

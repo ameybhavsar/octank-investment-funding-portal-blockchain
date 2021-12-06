@@ -15,7 +15,7 @@
 
 echo Run this script on the Fabric client node, OUTSIDE of the CLI container
 echo
-echo Add Donors
+echo Add Investors
 
 # Note the Args below - we are passing in a JSON payload, rather than the usual array of strings that Fabric requires. 
 # IMO this is much better as we can clearly see what each argument means, rather than just passing an array of strings
@@ -23,115 +23,115 @@ echo Add Donors
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createDonor","{\"donorUserName\": \"edge\", \"email\": \"edge@def.com\", \"registeredDate\": \"2018-10-22T11:52:20.182Z\"}"]}'
+-c '{"Args":["createInvestor","{\"investorUserName\": \"edge\", \"email\": \"edge@def.com\", \"registeredDate\": \"2018-10-22T11:52:20.182Z\"}"]}'
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createDonor","{\"donorUserName\": \"braendle\", \"email\": \"braendle@def.com\", \"registeredDate\": \"2018-10-22T11:52:20.182Z\"}"]}'
+-c '{"Args":["createInvestor","{\"investorUserName\": \"braendle\", \"email\": \"braendle@def.com\", \"registeredDate\": \"2018-10-22T11:52:20.182Z\"}"]}'
 
-echo Add NGOs
-
-docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
--e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
-cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createNGO","{\"ngoRegistrationNumber\": \"6322\", \"ngoName\": \"Pets In Need\", \"ngoDescription\": \"We help pets in need\", \"address\": \"1 Pet street\", \"contactNumber\": \"82372837\", \"contactEmail\": \"pets@petco.com\"}"]}'
-
+echo Add OIFPs
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createNGO","{\"ngoRegistrationNumber\": \"6323\", \"ngoName\": \"Dogs In Need\", \"ngoDescription\": \"We help dogs in need\", \"address\": \"1 Dog street\", \"contactNumber\": \"82372837\", \"contactEmail\": \"dogs@dogco.com\"}"]}'
+-c '{"Args":["createOIFP","{\"oifpRegistrationNumber\": \"6322\", \"oifpName\": \"Pets In Need\", \"oifpDescription\": \"We help pets in need\", \"address\": \"1 Pet street\", \"contactNumber\": \"82372837\", \"contactEmail\": \"pets@petco.com\"}"]}'
 
-echo Add Donation
+
+docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
+-e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
+cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
+-c '{"Args":["createOIFP","{\"oifpRegistrationNumber\": \"6323\", \"oifpName\": \"Dogs In Need\", \"oifpDescription\": \"We help dogs in need\", \"address\": \"1 Dog street\", \"contactNumber\": \"82372837\", \"contactEmail\": \"dogs@dogco.com\"}"]}'
+
+echo Add Investment
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" 
 \ -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" 
 \ cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME 
-\ -c '{"Args":["createDonation","{\"donationId\": \"2211\", \"donationAmount\": 100, \"donationDate\": \"2018-09-20T12:41:59.582Z\", \"donorUserName\": \"edge\", \"ngoRegistrationNumber\": \"6322\"}"]}'
+\ -c '{"Args":["createInvestment","{\"investmentId\": \"2211\", \"investmentAmount\": 100, \"investmentDate\": \"2018-09-20T12:41:59.582Z\", \"investorUserName\": \"edge\", \"oifpRegistrationNumber\": \"6322\"}"]}'
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createDonation","{\"donationId\": \"2212\", \"donationAmount\": 733, \"donationDate\": \"2018-09-20T12:41:59.582Z\", \"donorUserName\": \"braendle\", \"ngoRegistrationNumber\": \"6322\"}"]}'
+-c '{"Args":["createInvestment","{\"investmentId\": \"2212\", \"investmentAmount\": 733, \"investmentDate\": \"2018-09-20T12:41:59.582Z\", \"investorUserName\": \"braendle\", \"oifpRegistrationNumber\": \"6322\"}"]}'
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createDonation","{\"donationId\": \"2230\", \"donationAmount\": 450, \"donationDate\": \"2018-09-20T12:41:59.582Z\", \"donorUserName\": \"edge\", \"ngoRegistrationNumber\": \"6323\"}"]}'
+-c '{"Args":["createInvestment","{\"investmentId\": \"2230\", \"investmentAmount\": 450, \"investmentDate\": \"2018-09-20T12:41:59.582Z\", \"investorUserName\": \"edge\", \"oifpRegistrationNumber\": \"6323\"}"]}'
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createDonation","{\"donationId\": \"2231\", \"donationAmount\": 29, \"donationDate\": \"2018-09-20T12:41:59.582Z\", \"donorUserName\": \"braendle\", \"ngoRegistrationNumber\": \"6323\"}"]}'
+-c '{"Args":["createInvestment","{\"investmentId\": \"2231\", \"investmentAmount\": 29, \"investmentDate\": \"2018-09-20T12:41:59.582Z\", \"investorUserName\": \"braendle\", \"oifpRegistrationNumber\": \"6323\"}"]}'
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createDonation","{\"donationId\": \"2232\", \"donationAmount\": 98, \"donationDate\": \"2018-09-20T12:41:59.582Z\", \"donorUserName\": \"braendle\", \"ngoRegistrationNumber\": \"6323\"}"]}'
+-c '{"Args":["createInvestment","{\"investmentId\": \"2232\", \"investmentAmount\": 98, \"investmentDate\": \"2018-09-20T12:41:59.582Z\", \"investorUserName\": \"braendle\", \"oifpRegistrationNumber\": \"6323\"}"]}'
 
 echo Add Spend
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createSpend","{\"ngoRegistrationNumber\": \"6322\", \"spendId\": \"2\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 33}"]}'
+-c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6322\", \"spendId\": \"2\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 33}"]}'
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createSpend","{\"ngoRegistrationNumber\": \"6322\", \"spendId\": \"3\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 651}"]}'
+-c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6322\", \"spendId\": \"3\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 651}"]}'
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createSpend","{\"ngoRegistrationNumber\": \"6323\", \"spendId\": \"4\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 323}"]}'
+-c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6323\", \"spendId\": \"4\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 323}"]}'
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createSpend","{\"ngoRegistrationNumber\": \"6323\", \"spendId\": \"5\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 21.765}"]}'
+-c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6323\", \"spendId\": \"5\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 21.765}"]}'
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createSpend","{\"ngoRegistrationNumber\": \"6323\", \"spendId\": \"6\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 625}"]}'
+-c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6323\", \"spendId\": \"6\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 625}"]}'
 
-echo Query all donors
-
-docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
--e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
-cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryAllDonors"]}'
-
-echo Query specific donor
+echo Query all investors
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
-cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryDonor","{\"donorUserName\": \"edge\"}"]}'
+cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryAllInvestors"]}'
 
-echo Query all NGOs
-
-docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
--e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
-cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryAllNGOs"]}'
-
-echo Query specific NGO
+echo Query specific investor
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
-cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryNGO","{\"ngoRegistrationNumber\": \"6322\"}"]}'
+cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryInvestor","{\"investorUserName\": \"edge\"}"]}'
 
-echo Query all Donations
-
-docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
--e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
-cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryAllDonations"]}'
-
-echo Query all Donations for NGO
+echo Query all OIFPs
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
-cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryDonationsForNGO","{\"ngoRegistrationNumber\": \"6322\"}"]}'
+cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryAllOIFPs"]}'
+
+echo Query specific OIFP
+
+docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
+-e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
+cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryOIFP","{\"oifpRegistrationNumber\": \"6322\"}"]}'
+
+echo Query all Investments
+
+docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
+-e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
+cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryAllInvestments"]}'
+
+echo Query all Investments for OIFP
+
+docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
+-e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
+cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryInvestmentsForOIFP","{\"oifpRegistrationNumber\": \"6322\"}"]}'
 
 echo Query all Spend
 
@@ -146,11 +146,11 @@ docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryAllSpendAllocations"]}'
 
-echo Query SpendAllocations for a donation
+echo Query SpendAllocations for a investment
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
-cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["querySpendAllocationForDonation","{\"donationId\": \"2212\"}"]}'
+cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["querySpendAllocationForInvestment","{\"investmentId\": \"2212\"}"]}'
 
 echo Query SpendAllocations for a spend record
 

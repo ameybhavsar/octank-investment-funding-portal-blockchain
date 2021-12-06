@@ -15,7 +15,7 @@
 
 # REPODIR points to this repo
 # LOCALCA points to the location of the TLS cert
-REPODIR=~/octank-investment-funding-portal
+REPODIR=~/octank-investment-funding-portal-blockchain
 LOCALCA=/home/ec2-user/managedblockchain-tls-chain.pem 
 
 #copy the connection profiles

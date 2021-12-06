@@ -49,11 +49,11 @@ echo
 
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/oifps -H 'content-type: application/json' -d '{
     "oifpRegistrationNumber": "1101",
-    "oifpName": "Making the Earth Green",
-    "oifpDescription": "Our Earth is losing an estimated 18 million acres (7.3 million hectares) of forest every year. The impact of deforestation includes declining biodiversity, ecological imbalances and climate changes around the world. If the current rate of deforestaion continues, it will take less than 100 years to destroy all the rainforests on Earth. Making the Earth Green, a non-profit organization, works with governments, companies and communities to educate and promote responsible forest management practices and protect forest areas. We strongly believe that our children and the future generations deserve a better environment than the current state and it is our responsibility to make that happen. Please donate to make the Earth greener!",
-    "address": "101 Making the Earth Green",
+    "oifpName": "Amazon Stock Investment",
+    "oifpDescription": "Invest in Amazon Stocks and Portfolio.",
+    "address": "101 Amazon Stock Investment",
     "contactNumber": "6304972628",
-    "contactEmail": "makingearth@makingearth.com"
+    "contactEmail": "investment@stock.com"
 }')
 
 echo "Transaction ID is $TRX_ID"
@@ -63,11 +63,11 @@ echo
 
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/oifps -H 'content-type: application/json' -d '{
     "oifpRegistrationNumber": "1102",
-    "oifpName": "Books Now Fund",
-    "oifpDescription": "More than 330 million children, including over 90 percent of primary school age children in low-income countries, and 75 percent of children in lower-middle income countries, are expected not to be able to read by the time they finish primary school. Books Now Fund aims to bring the power of reading to children in these countries, to give them the opportunity to learn, and to encourage them to pursue education. Your investment will help us making the world a better reading place for these children! 1. UNESCO Institute for Statistics. (2017). More Than One-Half of Children and Adolescents Are Not Learning Worldwide. Fact Sheet. Paris: UNESCO. [Accessed 26 January 2018].",
-    "address": "201 Books Now Fund",
+    "oifpName": "Metaverse ETF Investment",
+    "oifpDescription": "Invest in various Metaverse equities and holdings.",
+    "address": "201 Metaverse ETF Investment",
     "contactNumber": "6305932628",
-    "contactEmail": "booksfund@booksfund.com"
+    "contactEmail": "investment@metaverse.com"
 }')
 
 echo "Transaction ID is $TRX_ID"
@@ -78,11 +78,11 @@ echo
 
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/oifps -H 'content-type: application/json' -d '{
     "oifpRegistrationNumber": "1103",
-    "oifpName": "Animal Rescue Troop",
-    "oifpDescription": "Animal Rescue Troop is a non-profit organization dedicated to animal welfare and shelter. We are volunteer-run and focus on rescuing, rehabilitating and finding forever homes for stray and abandoned animals. There are many ways that you can help: by adopting an animal, providing temporary shelter, becoming a sponsor or donating to our pet shelter. Step up and show that you care!",
-    "address": "301 Animal Rescue Troop",
+    "oifpName": "Robinhood SPAC Investment",
+    "oifpDescription": "Invest in early SPACs for high fidelity advantage.",
+    "address": "301 Robinhood SPAC Investment",
     "contactNumber": "6309472628",
-    "contactEmail": "animalrescue@animalrescue.com"
+    "contactEmail": "investment@spac.com"
 }')
 
 echo "Transaction ID is $TRX_ID"
@@ -92,11 +92,11 @@ echo
 
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/oifps -H 'content-type: application/json' -d '{
     "oifpRegistrationNumber": "1104",
-    "oifpName": "Helping Hands",
-    "oifpDescription": "Helping Hands is a homeless support group. According to a global survey conducted by the United Nations in 2005, an estimated 100 million people were homeless worldwide. Thousands of people around the United States currently face homelessness. During difficult times, local non-profit organizations like ours are vital in providing shelter and support to those in need. We work with local businesses and non-profit partners delivering life-saving services in the communities such as delivering essential backpacks to homeless shelters, sourcing food investments and job placements. Everyone deserved a place to call home, we appreciate your investment to support local communities in overcoming adversity.",
-    "address": "401 Helping Thousands",
+    "oifpName": "LendingTree Mortgage Securities",
+    "oifpDescription": "Invest in various mortgages securities offered by lending tree.",
+    "address": "401 LendingTree Mortgage Securities",
     "contactNumber": "6307352628",
-    "contactEmail": "helpinghands@helpinghands.com"
+    "contactEmail": "investment@mortgages.com"
 }')
 
 echo "Transaction ID is $TRX_ID"
@@ -106,11 +106,11 @@ echo
 
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/oifps -H 'content-type: application/json' -d '{
     "oifpRegistrationNumber": "1105",
-    "oifpName": "STEM Sprout",
-    "oifpDescription": "STEM Sprout\u0027s goal is expanding access to Science, Technology, Engineering and Mathematics in schools and increasing participation in these fields of study. Over the next decade, many of the 30+ fastest growing jobs will require STEM skills. We work with schools in our communities to organize activities and develop curricula. We want to ensure that understanding techology become a basic skill for our next generation. Giving children the resources and empowering them to understand even the basics of sciences would open up so many options and opportunities for them down the road. Come and help to open doors to STEM for our children!",
-    "address": "1501 STEM",
+    "oifpName": "Redfin Real Estate Securities",
+    "oifpDescription": "Invest in various Real Estate products.",
+    "address": "1501 Redfin Real Estate Securities",
     "contactNumber": "8574639353",
-    "contactEmail": "stem@stemresearch.com"
+    "contactEmail": "investment@realestate.com"
 }')
 
 echo "Transaction ID is $TRX_ID"
@@ -296,7 +296,7 @@ SPENDID=$(uuidgen)
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/spend -H 'content-type: application/json' -d '{ 
         "oifpRegistrationNumber": "1103",
         "spendId": "'"${SPENDID}"'",
-        "spendDescription": "Fees for hiring transport for animal delivery",
+        "spendDescription": "Fees for working capital.",
         "spendDate": "2018-11-19T12:20:59.582Z",
         "spendAmount": 125
 }')
@@ -306,7 +306,7 @@ SPENDID=$(uuidgen)
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/spend -H 'content-type: application/json' -d '{ 
         "oifpRegistrationNumber": "1105",
         "spendId": "'"${SPENDID}"'",
-        "spendDescription": "Purchase test tubes",
+        "spendDescription": "Purchase deeds for various properties.",
         "spendDate": "2018-09-10T22:41:59.582Z",
         "spendAmount": 99
 }')

@@ -1,0 +1,246 @@
+<!––
+/*
+# Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License").
+# You may not use this file except in compliance with the License.
+# A copy of the License is located at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# or in the "license" file accompanying this file. This file is distributed
+# on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+# express or implied. See the License for the specific language governing
+# permissions and limitations under the License.
+#
+*/
+––>
+<div class="container h-9 extra-margin-top">
+    <div class="row mb-2">
+        <div class="col">
+            <h5 class="font-weight-light">Choose a investment product to make your investment</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 h-95 display-inline-grid">
+            <div class="shadow-sm investors-list container-dynamic-height">
+                <div *ngFor="let oifp of oifplist; let i = index" [class]="selectedOIFP.id===oifp.id?'active':''" (click)="onOIFPSelect(oifp)">
+                    <div class="mr-3"><img src={{oifp.oifp_icon_url}} class="img-fluid">
+                        <app-star-rating class="text-center" class.disabled [rating]='oifp.oifp_rating' [itemId]='oifp.id+oifp.oifp_rating'></app-star-rating>
+                    </div>
+                    <div class="text-center mt-2">
+                    </div>
+                    <div>
+                        <h5 class="m-0 font-weight-normal">{{oifp.oifp_name}}</h5>
+                        <p class="m-0 mt-1">Total investments: {{oifp.oifp_investments | currency:'USD':'symbol':'1.2-2'}}
+                            USD</p>
+                        <p class="m-0 mt-1">My investment: {{oifp.oifp_user_investments | currency:'USD':'symbol':'1.2-2'}}
+                            USD</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <div class="border p-3 shadow-sm rounded h-100 container-dynamic-height">
+                <div class="d-flex flex-row justify-content-between mb-4 ">
+                    <div class="d-flex">
+                        <div class="d-flex flex-column align-items-center mr-3">
+                            <img src={{selectedOIFP.oifp_icon_url}} class="img-fluid wdth-150">
+                            <div class="text-center mt-2">
+                                <app-star-rating class.disabled [rating]='selectedOIFP.oifp_rating' [itemId]='selectedOIFP.oifp_rating+selectedOIFP.id'
+                                    data-toggle="modal" data-target="#rating"></app-star-rating>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="m-0">{{selectedOIFP.oifp_name}}</h5>
+                            <p class="m-0">Regn. No. {{selectedOIFP.oifp_reg_no}}<br>{{selectedOIFP.oifp_address}}<br>{{selectedOIFP.oifp_phone}}<br>{{selectedOIFP.oifp_email}},</p>
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-column align-items-end">
+                        <div>
+                            <ul class="d-inline-flex list-unstyled border rounded">
+                                <li class="d-flex flex-column justify-content-center align-items-center p-1 text-nowrap pl-2 pr-2">
+                                    <span>Total Investments</span><span><strong>{{selectedOIFP.oifp_investments |
+                                            currency:'USD':'symbol':'1.2-2'}}</strong></span>
+                                </li>
+                                <li class="d-flex flex-column justify-content-center align-items-center p-1 text-nowrap pl-2 pr-2 border-left border-right bg-gray-200">
+                                    <span>Utilized fund</span><span> <a href="#" data-toggle="modal" data-target="#funds-utilized">
+                                            {{selectedOIFP.oifp_fund_utilized | currency:'USD':'symbol':'1.2-2'}}</a></span>
+                                </li>
+                                <li class="d-flex flex-column justify-content-center align-items-center p-1 text-nowrap pl-2 pr-2 bg-light">
+                                    <span>My investments</span><span>{{selectedOIFP.oifp_user_investments |
+                                        currency:'USD':'symbol':'1.2-2'}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="d-inline-flex list-unstyled border rounded">
+                                <li class="d-flex flex-column justify-content-center align-items-center p-1 text-nowrap pl-2 pr-2">
+                                    <span>Total Projects</span><span><strong>{{selectedOIFP.oifp_projects}}</strong></span>
+                                </li>
+                                <li class="d-flex flex-column justify-content-center border-left align-items-center p-1 text-nowrap pl-2 pr-2">
+                                    <span>Total no.of investors</span><span><a href="#" data-toggle="modal" data-target="#investors">{{selectedOIFP.oifp_Investors}}</a></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="position-relative">
+                    <!--<button class="btn btn-link gallery-link" type="button" data-toggle="modal" data-target="#gallery">
+                        <i class="fa fa-photo mr-1 text-muted"></i>Gallery
+                    </button>-->
+
+                    <div class="clear-both pt-3 pb-3">
+                        <h4 class="border-bottom">About</h4>
+                        <div class="about-content pr-4">
+                            <p class="about-content">{{selectedOIFP.oifp_about}}</p>
+                        </div>
+                        <div class="mt-5">
+                            <form class="justify-content-start align-items-center" [formGroup]="investForm">
+                                <div class="form-group d-inline-flex m-0">
+                                    <input class="form-control font-size-1rem w-50" type="number" formControlName="investmentAmount"
+                                        placeholder="$ 150.00">
+                                    <div *ngIf="submitted && investment.investmentAmount.errors" class="invalid-feedback"
+                                        [ngClass]="{ 'is-invalid': submitted && investment.investmentAmount.errors}">
+                                        <div *ngIf="investment.investmentAmount.errors.required">Investment amount is
+                                            required</div>
+                                    </div>
+                                    <a class="btn btn-warning ml-2 text-white" (click)='onInvest()' role="button">
+                                        Invest<i *ngIf="loading" class='fa fa-circle-o-notch fa-spin ml-2 '> </i>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-gallery [itemId]='selectedOIFP.oifp_reg_no'></app-gallery>
+
+<div class="modal fade" role="dialog" tabindex="-1" id="funds-utilized">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header pb-2">
+                <h4 class="modal-title">Funds utilized</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body p-0">
+                <table class="table w-100 tbl-funds-utilized table-sm table-borderless table-striped">
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <th class="font-weight-normal pl-4">#</th>
+                            <th class="font-weight-normal">Item name</th>
+                            <th class="text-right font-weight-normal pr-4">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody class="overflow-y-auto max-height-200">
+                        <tr *ngFor="let spendDetails of selectedOIFP.oifp_spend_details; let i = index">
+                            <td class="pl-4">{{i+1}}</td>
+                            <td>{{spendDetails.spendDescription}}</td>
+                            <td class="text-right pr-4" data-dismiss="modal" data-toggle="modal" (click)='renderGraph(spendDetails.spendId,spendDetails.spendAmount)'
+                                data-target="#contributionChart"><a href='#'>{{spendDetails.spendAmount
+                                    |
+                                    currency:'USD':'symbol':'1.2-2'}}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade " role="dialog" tabindex="-1" id="contributionChart">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0 pt-2 pb-2">
+                <h4 class="modal-title text-center">Investor's contribution </h4>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-toggle="modal"
+                    data-target="#funds-utilized">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class='wrapper' style="text-align: center">
+                <div #graphcontainer> </div>
+                <!-- <i *ngIf="show_graph" class='fa fa-circle-o-notch fa-spin'>
+                </i> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" role="dialog" tabindex="-1" id="investors">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+                <h4 class="modal-title">Investors list</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body overflow-y-auto max-height-200 p-0 mb-4 pt-2">
+                <div class="table-responsive table-sm table-borderless table-striped">
+                    <table class="table m-0">
+                        <thead class="bg-dark text-white">
+                            <tr>
+                                <th class="font-weight-normal pl-4">#</th>
+                                <th class="font-weight-normal">Investor name</th>
+                                <th class="text-right font-weight-normal  pr-4">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody class="overflow-y-auto max-height-200">
+                            <tr *ngFor="let oifp of getOifpInvestorsAmountKeys(); let i = index">
+                                <td class="pl-4">{{i+1}}</td>
+                                <td>{{oifp}}</td>
+                                <td class="text-right pr-4">{{selectedOIFP.oifp_investor_details.get(oifp) |
+                                    currency:'USD':'symbol':'1.2-2'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf='selectedOIFP.oifp_user_rating===0' class="modal fade" role="dialog" tabindex="-1" id="rating">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header pt-3 pb-3">
+                <h4 class="modal-title">Rating for <strong>{{selectedOIFP.oifp_name}}</strong></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row h-100">
+                    <div class="col- col-sm-6 text-center my-auto">
+                        <p>My rating</p>
+                        <app-star-rating class="pop-rating" [iseditable]='selectedOIFP.oifp_user_rating===0' [rating]='selectedOIFP.oifp_user_rating'
+                            [itemId]='userRating.transactionId' data-dismiss="modal"></app-star-rating>
+                    </div>
+                    <div class="col- col-sm-6 text-center my-auto">
+                        <div class="rounded-circle border align-middle d-block mx-auto pop-overall-rating">
+                            <p class="mt-5">Overall rating</p>
+                            <app-star-rating class="pop-rating" [rating]='selectedOIFP.oifp_rating' [itemId]='selectedOIFP.id'></app-star-rating>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -313,7 +313,7 @@ async function allocateSpend(stub, spend) {
     //   "spendAllocationId":"c5b39e938a29a80c225d10e8327caaf817f76aecd381c868263c4f59a45daf62-1",
     //   "spendAllocationAmount":38.5,
     //   "spendAllocationDate":"2018-09-20T12:41:59.582Z",
-    //   "spendAllocationDescription":"Peter Pipers Poulty Portions for Pets",
+    //   "spendAllocationDescription":"Transaction clearance charges.",
     //   "investmentId":"FFF6A68D-DB19-4CD3-97B0-01C1A793ED3B",
     //   "oifpRegistrationNumber":"D0884B20-385D-489E-A9FD-2B6DBE5FEA43",
     //   "spendId": "1234"
@@ -719,7 +719,7 @@ let Chaincode = class {
    * {
    *    "oifpRegistrationNumber":"6322",
    *    "spendId":"2",
-   *    "spendDescription":"Peter Pipers Poulty Portions for Pets",
+   *    "spendDescription":"Transaction clearance charges.",
    *    "spendDate":"2018-09-20T12:41:59.582Z",
    *    "spendAmount":33,
    * }
@@ -816,7 +816,7 @@ let Chaincode = class {
    *   "spendAllocationId":"c5b39e938a29a80c225d10e8327caaf817f76aecd381c868263c4f59a45daf62-1",
    *   "spendAllocationAmount":38.5,
    *   "spendAllocationDate":"2018-09-20T12:41:59.582Z",
-   *   "spendAllocationDescription":"Peter Pipers Poulty Portions for Pets",
+   *   "spendAllocationDescription":"Transaction clearance charges.",
    *   "investmentId":"FFF6A68D-DB19-4CD3-97B0-01C1A793ED3B",
    *   "oifpRegistrationNumber":"D0884B20-385D-489E-A9FD-2B6DBE5FEA43",
    *   "spendId": "1234"

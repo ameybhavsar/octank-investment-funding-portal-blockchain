@@ -623,7 +623,7 @@ async function dummySpend() {
 	args = {};
 	args["oifpRegistrationNumber"] = oifp;
 	args["spendId"] = spendId;
-	args["spendDescription"] = "Peter Pipers Poulty Portions for Pets";
+	args["spendDescription"] = "Transaction clearance charges.";
 	args["spendDate"] = "2018-09-20T12:41:59.582Z";
 	args["spendAmount"] = spendAmt;
 

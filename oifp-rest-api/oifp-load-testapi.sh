@@ -245,7 +245,7 @@ SPENDID=$(uuidgen)
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/spend -H 'content-type: application/json' -d '{ 
         "oifpRegistrationNumber": "'"${OIFP1}"'",
         "spendId": "'"${SPENDID}"'",
-        "spendDescription": "Peter Pipers Poulty Portions for Pets",
+        "spendDescription": "Transaction clearance charges.",
         "spendDate": "2018-09-20T12:41:59.582Z",
         "spendAmount": 33
 }')
@@ -255,7 +255,7 @@ SPENDID=$(uuidgen)
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/spend -H 'content-type: application/json' -d '{ 
         "oifpRegistrationNumber": "'"${OIFP2}"'",
         "spendId": "'"${SPENDID}"'",
-        "spendDescription": "Peter Pipers Poulty Portions for Pets",
+        "spendDescription": "Transaction clearance charges.",
         "spendDate": "2018-09-20T12:41:59.582Z",
         "spendAmount": 100
 }')
@@ -265,7 +265,7 @@ SPENDID=$(uuidgen)
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/spend -H 'content-type: application/json' -d '{ 
         "oifpRegistrationNumber": "'"${OIFP1}"'",
         "spendId": "'"${SPENDID}"'",
-        "spendDescription": "Peter Pipers Poulty Portions for Pets",
+        "spendDescription": "Transaction clearance charges.",
         "spendDate": "2018-09-20T12:41:59.582Z",
         "spendAmount": 123
 }')
@@ -275,7 +275,7 @@ SPENDID=$(uuidgen)
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/spend -H 'content-type: application/json' -d '{ 
         "oifpRegistrationNumber": "'"${OIFP1}"'",
         "spendId": "'"${SPENDID}"'",
-        "spendDescription": "Peter Pipers Poulty Portions for Pets",
+        "spendDescription": "Transaction clearance charges.",
         "spendDate": "2018-09-20T12:41:59.582Z",
         "spendAmount": 1000
 }')
@@ -285,7 +285,7 @@ SPENDID=$(uuidgen)
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/spend -H 'content-type: application/json' -d '{ 
         "oifpRegistrationNumber": "'"${OIFP1}"'",
         "spendId": "'"${SPENDID}"'",
-        "spendDescription": "Peter Pipers Poulty Portions for Pets",
+        "spendDescription": "Transaction clearance charges.",
         "spendDate": "2018-09-20T12:41:59.582Z",
         "spendAmount": 23
 }')
@@ -384,7 +384,7 @@ SPENDID=$(uuidgen)
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/spend -H 'content-type: application/json' -d '{ 
         "oifpRegistrationNumber": "'"${OIFP1}"'",
         "spendId": "'"${SPENDID}"'",
-        "spendDescription": "Peter Pipers Poulty Portions for Pets",
+        "spendDescription": "Transaction clearance charges.",
         "spendDate": "2018-09-20T12:41:59.582Z",
         "spendAmount": 666
 }')
@@ -394,7 +394,7 @@ SPENDID=$(uuidgen)
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/spend -H 'content-type: application/json' -d '{ 
         "oifpRegistrationNumber": "'"${OIFP1}"'",
         "spendId": "'"${SPENDID}"'",
-        "spendDescription": "Peter Pipers Poulty Portions for Pets",
+        "spendDescription": "Transaction clearance charges.",
         "spendDate": "2018-09-20T12:41:59.582Z",
         "spendAmount": 227
 }')
@@ -404,7 +404,7 @@ SPENDID=$(uuidgen)
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/spend -H 'content-type: application/json' -d '{ 
         "oifpRegistrationNumber": "'"${OIFP2}"'",
         "spendId": "'"${SPENDID}"'",
-        "spendDescription": "Peter Pipers Poulty Portions for Pets",
+        "spendDescription": "Transaction clearance charges.",
         "spendDate": "2018-09-20T12:41:59.582Z",
         "spendAmount": 1
 }')
@@ -414,7 +414,7 @@ SPENDID=$(uuidgen)
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/spend -H 'content-type: application/json' -d '{ 
         "oifpRegistrationNumber": "'"${OIFP2}"'",
         "spendId": "'"${SPENDID}"'",
-        "spendDescription": "Peter Pipers Poulty Portions for Pets",
+        "spendDescription": "Transaction clearance charges.",
         "spendDate": "2018-09-20T12:41:59.582Z",
         "spendAmount": 77
 }')
@@ -444,7 +444,7 @@ SPENDID=$(uuidgen)
 TRX_ID=$(curl -s -X POST http://${ENDPOINT}:${PORT}/spend -H 'content-type: application/json' -d '{ 
         "oifpRegistrationNumber": "'"${OIFP2}"'",
         "spendId": "'"${SPENDID}"'",
-        "spendDescription": "Peter Pipers Poulty Portions for Pets",
+        "spendDescription": "Transaction clearance charges.",
         "spendDate": "2018-09-20T12:41:59.582Z",
         "spendAmount": 0
 }')

@@ -75,27 +75,27 @@ echo Add Spend
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6322\", \"spendId\": \"2\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 33}"]}'
+-c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6322\", \"spendId\": \"2\", \"spendDescription\": \"Transaction clearance charges.\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 33}"]}'
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6322\", \"spendId\": \"3\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 651}"]}'
+-c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6322\", \"spendId\": \"3\", \"spendDescription\": \"Transaction clearance charges.\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 651}"]}'
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6323\", \"spendId\": \"4\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 323}"]}'
+-c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6323\", \"spendId\": \"4\", \"spendDescription\": \"Transaction clearance charges.\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 323}"]}'
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6323\", \"spendId\": \"5\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 21.765}"]}'
+-c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6323\", \"spendId\": \"5\", \"spendDescription\": \"Transaction clearance charges.\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 21.765}"]}'
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \ 
 -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \ 
 cli peer chaincode invoke -o $ORDERER -C $CHANNEL -n $CHAINCODENAME \ 
--c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6323\", \"spendId\": \"6\", \"spendDescription\": \"Peter Pipers Poulty Portions for Pets\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 625}"]}'
+-c '{"Args":["createSpend","{\"oifpRegistrationNumber\": \"6323\", \"spendId\": \"6\", \"spendDescription\": \"Transaction clearance charges.\", \"spendDate\": \"2018-09-20T12:41:59.582Z\", \"spendAmount\": 625}"]}'
 
 echo Query all investors
 

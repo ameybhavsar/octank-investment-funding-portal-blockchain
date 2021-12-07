@@ -2,8 +2,8 @@ tmp
 archive
 .vscode
 .idea
-ngo-rest-api/node_modules
-ngo-rest-api/fabric-client-kv-org1
-ngo-ui/node_modules
-ngo-ui/Config
+oifp-rest-api/node_modules
+oifp-rest-api/fabric-client-kv-org1
+oifp-ui/node_modules
+oifp-ui/Config
 .DS_Store

@@ -1,10 +1,10 @@
 {
-    "name": "ngo-lambda",
+    "name": "oifp-lambda",
     "version": "1.0.0",
     "description": "A Lambda function to execute transactions against Amazon Managed Blockchain",
     "main": "index.js",
     "engines": {
-        "node": ">=10.0.0 <12",
+        "node": ">=14.0.0",
         "npm": ">=6.0.0"
     },
     "license": "Apache-2.0",

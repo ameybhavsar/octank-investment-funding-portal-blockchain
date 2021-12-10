@@ -68,11 +68,11 @@ Resources:
       ManagedPolicyArns:
         - !Ref SecretsManagerReadPolicy
         - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
-  NGOLambdaFunction:
+  OIFPLambdaFunction:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: index.handler
-      Runtime: nodejs10.x
+      Runtime: nodejs14.x
       CodeUri: ./src
       FunctionName: !Ref LAMBDANAME
       MemorySize: 512
@@ -94,24 +94,24 @@ Resources:
         SubnetIds:
           - !Ref SUBNETID
       Events:
-        GetDonors:
+        GetInvestors:
           Type: Api
           Properties:
-            Path: /donors
+            Path: /investors
             Method: get
-            RestApiId: !Ref NGOAPIGateway
-        CreateDonor:
+            RestApiId: !Ref OIFPAPIGateway
+        CreateInvestor:
           Type: Api
           Properties:
-            Path: /donors
+            Path: /investors
             Method: post
-            RestApiId: !Ref NGOAPIGateway
-        GetDonor:
+            RestApiId: !Ref OIFPAPIGateway
+        GetInvestor:
           Type: Api
           Properties:
-            Path: /donors/{donorUserName}
+            Path: /investors/{investorUserName}
             Method: get
-            RestApiId: !Ref NGOAPIGateway
+            RestApiId: !Ref OIFPAPIGateway
   SecretsManagerVPCE:
     Type: 'AWS::EC2::VPCEndpoint'
     Properties:
@@ -123,18 +123,18 @@ Resources:
       VpcId: !Ref VPCID
       ServiceName: com.amazonaws.us-east-1.secretsmanager
       PrivateDnsEnabled: true
-  NGOAPIGateway:
+  OIFPAPIGateway:
     Type: 'AWS::Serverless::Api'
     Properties:
-      Name: NGO API
+      Name: OIFP API
       StageName: dev
       DefinitionBody: # Can't use uri: https://github.com/awslabs/serverless-application-model/issues/305
         swagger: "2.0"
         info:
           version: "2019-11-13T11:12:00Z"
-          title: "Non Profit Blockchain"
+          title: "Octank Investment Funding Portal Blockchain"
         paths:
-          /donors:
+          /investors:
             get:
               consumes:
               - "application/json"
@@ -147,13 +147,13 @@ Resources:
                     $ref: "#/definitions/Empty"
               x-amazon-apigateway-integration:
                 uri:
-                  Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${NGOLambdaFunction.Arn}/invocations"
+                  Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${OIFPLambdaFunction.Arn}/invocations"
                 responses:
                   default:
                     statusCode: "200"
                 requestTemplates:
                   application/json: "{\n  \"functionType\": \"queryObject\",\n  \"chaincodeFunction\"\
-                    : \"queryAllDonors\",\n  \"chaincodeFunctionArgs\": {},\n  \"fabricUsername\"\
+                    : \"queryAllInvestors\",\n  \"chaincodeFunctionArgs\": {},\n  \"fabricUsername\"\
                     : \"lambdaUser\"\n}"
                 passthroughBehavior: "when_no_templates"
                 httpMethod: "POST"
@@ -171,28 +171,28 @@ Resources:
                     $ref: "#/definitions/Empty"
               x-amazon-apigateway-integration:
                 uri:
-                  Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${NGOLambdaFunction.Arn}/invocations"
+                  Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${OIFPLambdaFunction.Arn}/invocations"
                 responses:
                   default:
                     statusCode: "200"
                 requestTemplates:
                   application/json: "{\n  \"functionType\": \"invoke\",\n  \"chaincodeFunction\"\
-                    : \"createDonor\",\n  \"chaincodeFunctionArgs\": {\n      #set( $body\
-                    \ = $util.parseJson($input.body) )\n      \"donorUserName\": \"$body.donorUserName\"\
+                    : \"createInvestor\",\n  \"chaincodeFunctionArgs\": {\n      #set( $body\
+                    \ = $util.parseJson($input.body) )\n      \"investorUserName\": \"$body.investorUserName\"\
                     ,\n      \"email\": \"$body.email\",\n      \"registeredDate\":\"$context.requestTime\"\
                     \n  },\n  \"fabricUsername\": \"lambdaUser\"\n}"
                 passthroughBehavior: "when_no_templates"
                 httpMethod: "POST"
                 contentHandling: "CONVERT_TO_TEXT"
                 type: "aws"
-          /donors/{donorUserName}:
+          /investors/{investorUserName}:
             get:
               consumes:
               - "application/json"
               produces:
               - "application/json"
               parameters:
-              - name: "donorUserName"
+              - name: "investorUserName"
                 in: "path"
                 required: true
                 type: "string"
@@ -203,14 +203,14 @@ Resources:
                     $ref: "#/definitions/Empty"
               x-amazon-apigateway-integration:
                 uri:
-                  Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${NGOLambdaFunction.Arn}/invocations"
+                  Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${OIFPLambdaFunction.Arn}/invocations"
                 responses:
                   default:
                     statusCode: "200"
                 requestTemplates:
                   application/json: "{\n  \"functionType\": \"queryObject\",\n  \"chaincodeFunction\"\
-                    : \"queryDonor\",\n  \"chaincodeFunctionArgs\": {\n      \"donorUserName\"\
-                    : \"$input.params('donorUserName')\"\n  },\n  \"fabricUsername\": \"lambdaUser\"\
+                    : \"queryInvestor\",\n  \"chaincodeFunctionArgs\": {\n      \"investorUserName\"\
+                    : \"$input.params('investorUserName')\"\n  },\n  \"fabricUsername\": \"lambdaUser\"\
                     \n}"
                 passthroughBehavior: "when_no_templates"
                 httpMethod: "POST"
@@ -223,4 +223,4 @@ Resources:
 Outputs:
   APIGatewayURL:
     Description: "API Gateway endpoint URL for Dev stage"
-    Value: !Sub "https://${NGOAPIGateway}.execute-api.${AWS::Region}.amazonaws.com/dev"
+    Value: !Sub "https://${OIFPAPIGateway}.execute-api.${AWS::Region}.amazonaws.com/dev"

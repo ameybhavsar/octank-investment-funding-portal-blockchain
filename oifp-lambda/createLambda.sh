@@ -13,7 +13,7 @@
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
-cd ~/non-profit-blockchain/ngo-lambda
+cd ~/octank-investment-funding-portal-blockchain/oifp-lambda
 
 echo Copy the Managed Blockchain TLS Certificate
 cp ~/managedblockchain-tls-chain.pem ./src/certs/managedblockchain-tls-chain.pem
@@ -25,11 +25,14 @@ sed -i "s|/home/ec2-user/managedblockchain-tls-chain.pem|./certs/managedblockcha
 # Install the gcc compiler to be used when installing the npm dependencies
 sudo yum install gcc-c++ -y
 
-echo Install Node.js. We will use v10.x.
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+echo Install Node.js. We will use v14.x.
+#curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh | bash
 . ~/.nvm/nvm.sh
-nvm install lts/dubnium
-nvm use lts/dubnium
+nvm install 14
+nvm use 14
+#nvm install lts/dubnium
+#nvm use lts/dubnium
 cd src
 npm install
 cd ..
@@ -42,7 +45,7 @@ aws cloudformation package --template-file lambda-api-template.yaml \
     --s3-bucket $BUCKETNAME
 
 echo Deploy the Lambda Cloudformation stack
-export CHAINCODEID=ngo
+export CHAINCODEID=oifp
 export LAMBDA_STACK_NAME=fabric-lambda-stack
 export VPC_STACK_NAME=$NETWORKNAME-fabric-client-node
 export VPCID=$(aws cloudformation describe-stacks --stack-name $VPC_STACK_NAME --query "Stacks[0].Outputs[?OutputKey=='VPCID'].OutputValue" --output text --region $REGION)

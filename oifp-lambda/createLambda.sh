@@ -27,10 +27,10 @@ sudo yum install gcc-c++ -y
 
 echo Install Node.js. We will use v14.x.
 #curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh | bash
-. ~/.nvm/nvm.sh
-nvm install 14
-nvm use 14
+#curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh | bash
+#. ~/.nvm/nvm.sh
+#nvm install 14
+#nvm use 14
 #nvm install lts/dubnium
 #nvm use lts/dubnium
 cd src

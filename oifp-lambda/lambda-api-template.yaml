@@ -132,7 +132,7 @@ Resources:
         swagger: "2.0"
         info:
           version: "2019-11-13T11:12:00Z"
-          title: "Octank Investment Funding Portal Blockchain"
+          title: "Octank Blockchain"
         paths:
           /investors:
             get:

@@ -9,13 +9,13 @@ For the Fabric workshop, the REST API server will run on the Fabric client node.
 
 From Cloud9, SSH into the Fabric client node. The key (i.e. the .PEM file) should be in your home directory. 
 The DNS of the Fabric client node EC2 instance can be found in the output of the AWS CloudFormation stack you 
-created in [Part 1](../ngo-fabric/README.md)
+created in [Part 1](../oifp-fabric/README.md)
 
 ```
 ssh ec2-user@<dns of EC2 instance> -i ~/<Fabric network name>-keypair.pem
 ```
 
-You should have already cloned this repo in [Part 1](../ngo-fabric/README.md)
+You should have already cloned this repo in [Part 1](../oifp-fabric/README.md)
 
 ```
 cd ~
@@ -23,15 +23,15 @@ git clone https://github.com/aws-samples/non-profit-blockchain.git
 ```
 
 You will need to set the context before carrying out any Fabric CLI commands. We do this 
-using the export files that were generated for us in [Part 1](../ngo-fabric/README.md)
+using the export files that were generated for us in [Part 1](../oifp-fabric/README.md)
 
 Source the file, so the exports are applied to your current session. If you exit the SSH 
 session and re-connect, you'll need to source the file again. The `source` command below
 will print out the values of the key ENV variables. Make sure they are all populated. If
-they are not, follow Step 4 in [Part 1](../ngo-fabric/README.md) to repopulate them:
+they are not, follow Step 4 in [Part 1](../oifp-fabric/README.md) to repopulate them:
 
 ```
-cd ~/non-profit-blockchain/ngo-fabric
+cd ~/non-profit-blockchain/oifp-fabric
 source fabric-exports.sh
 ```
 
@@ -62,7 +62,7 @@ On the Fabric client node.
 If you are upgrading from v1.2, you may need to remove the existing node_module: `rm -rf node_modules`
 
 ```
-cd ~/non-profit-blockchain/ngo-rest-api
+cd ~/non-profit-blockchain/oifp-rest-api
 npm install
 ```
 
@@ -76,13 +76,13 @@ Fabric network. The instructions below will auto-generate a connection profile.
 Generate the connection profile using the script below and check that the connection profile contains 
 URL endpoints for the peer, ordering service and CA, an 'mspid', a 'caName', and that the admin username and password
 match those you entered when creating the Fabric network. If they do not match, edit the connection profile
-and update them. The connection profile can be found here: `~/non-profit-blockchain/tmp/connection-profile/ngo-connection-profile.yaml`
+and update them. The connection profile can be found here: `~/non-profit-blockchain/tmp/connection-profile/oifp-connection-profile.yaml`
 
 ```
-cd ~/non-profit-blockchain/ngo-rest-api/connection-profile
+cd ~/non-profit-blockchain/oifp-rest-api/connection-profile
 ./gen-connection-profile.sh
 cd ~/non-profit-blockchain/tmp/connection-profile/
-cat ngo-connection-profile.yaml
+cat oifp-connection-profile.yaml
 ```
 
 ## Step 4 - Run the REST API Node.js application
@@ -91,7 +91,7 @@ On the Fabric client node.
 Run the app:
 
 ```
-cd ~/non-profit-blockchain/ngo-rest-api
+cd ~/non-profit-blockchain/oifp-rest-api
 nvm use 14
 node app.js 
 ```
@@ -105,7 +105,7 @@ From the new terminal, SSH into the Fabric cilent node.
 export REGION=us-east-1
 export STACKNAME=$(aws cloudformation describe-stacks --region $REGION --query 'Stacks[?Description==`Amazon Managed Blockchain. Creates network with a single member and peer node`] | [0].StackName' --output text)
 export NETWORKNAME=$(aws cloudformation describe-stacks --stack-name $STACKNAME --region $REGION --query 'Stacks[0].Outputs[?OutputKey==`NetworkName`].OutputValue' --output text)
-export EC2URL=$(aws cloudformation describe-stacks --stack-name ngo-fabric-client-node --query "Stacks[0].Outputs[?OutputKey=='EC2URL'].OutputValue" --output text --region $REGION)
+export EC2URL=$(aws cloudformation describe-stacks --stack-name oifp-fabric-client-node --query "Stacks[0].Outputs[?OutputKey=='EC2URL'].OutputValue" --output text --region $REGION)
 ssh ec2-user@$EC2URL -i ~/$NETWORKNAME-keypair.pem
 ```
 
@@ -171,8 +171,8 @@ this, remember to rerun the statements under Pre-requisites above.
 To run the script:
 
 ```
-cd ~/non-profit-blockchain/ngo-rest-api
-./ngo-load-workshop.sh
+cd ~/non-profit-blockchain/oifp-rest-api
+./oifp-load-workshop.sh
 ```
 
 # Testing
@@ -187,12 +187,12 @@ using a command such as `pm2 start app.js`, which will keep the app running. The
 ## Move on to Part 4
 The workshop instructions can be found in the README files in parts 1-4:
 
-* [Part 1:](../ngo-fabric/README.md) Start the workshop by building the Hyperledger Fabric blockchain network using Amazon Managed Blockchain.
-* [Part 2:](../ngo-chaincode/README.md) Deploy the non-profit chaincode. 
-* [Part 3:](../ngo-rest-api/README.md) Run the RESTful API server. 
-* [Part 4:](../ngo-ui/README.md) Run the application. 
+* [Part 1:](../oifp-fabric/README.md) Start the workshop by building the Hyperledger Fabric blockchain network using Amazon Managed Blockchain.
+* [Part 2:](../oifp-chaincode/README.md) Deploy the non-profit chaincode. 
+* [Part 3:](../oifp-rest-api/README.md) Run the RESTful API server. 
+* [Part 4:](../oifp-ui/README.md) Run the application. 
 * [Part 5:](../new-member/README.md) Add a new member to the network.
-* [Part 6:](../ngo-lambda/README.md) Read and write to the blockchain with Amazon API Gateway and AWS Lambda.
-* [Part 7:](../ngo-events/README.md) Use blockchain events to notify users of NGO donations.
+* [Part 6:](../oifp-lambda/README.md) Read and write to the blockchain with Amazon API Gateway and AWS Lambda.
+* [Part 7:](../oifp-events/README.md) Use blockchain events to notify users of oifp donations.
 * [Part 8:](../blockchain-explorer/README.md) Deploy Hyperledger Explorer. 
-* [Part 9:](../ngo-identity/README.md) Integrating blockchain users with Amazon Cognito.
+* [Part 9:](../oifp-identity/README.md) Integrating blockchain users with Amazon Cognito.

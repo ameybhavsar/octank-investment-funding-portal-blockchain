@@ -2,7 +2,7 @@
 
 Customers want to visualise their Fabric networks on Amazon Managed Blockchain. Hyperledger Explorer is an open source browser for viewing activity on the underlying Fabric network. It offers a web application that provides a view into the configuration of the Fabric network (channels, chaincodes, peers, orderers, etc.), as well as the activity taking place on the network (transactions, blocks, etc.). With a few tweaks, it can easily be used with Amazon Managed Blockchain.
 
-An Amazon Managed Blockchain network provisioned based on the steps in [Part 1](../ngo-fabric/README.md) is a pre-requisite. The steps in this README will provision and run the Hyperledger Explorer sync & web app components on the Fabric client node you created in [Part 1](../ngo-fabric/README.md).
+An Amazon Managed Blockchain network provisioned based on the steps in [Part 1](../oifp-fabric/README.md) is a pre-requisite. The steps in this README will provision and run the Hyperledger Explorer sync & web app components on the Fabric client node you created in [Part 1](../oifp-fabric/README.md).
 
 Hyperledger Explorer consists of a few components:
 
@@ -16,7 +16,7 @@ The instructions below are complete. You can refer to the instructions in the [H
 
 ## Pre-requisites
 
-An Amazon Managed Blockchain network provisioned based on the steps in [Part 1](../ngo-fabric/README.md) is a pre-requisite. The CIDR range of the subnet used by the Fabric client node has been changed to accommodate the additional subnets required by Hyperledger Explorer (see the [CloudFormation template](../ngo-fabric/fabric-client-node.yaml)), so if you previously completed [Part 1](../ngo-fabric/README.md) you will either need to recreate your Fabric client node VPC (i.e. delete the CloudFormation stack you created in step 3 of [Part 1](../ngo-fabric/README.md)), or you can simply create a new Fabric network starting from step 1 of [Part 1](../ngo-fabric/README.md).
+An Amazon Managed Blockchain network provisioned based on the steps in [Part 1](../oifp-fabric/README.md) is a pre-requisite. The CIDR range of the subnet used by the Fabric client node has been changed to accommodate the additional subnets required by Hyperledger Explorer (see the [CloudFormation template](../oifp-fabric/fabric-client-node.yaml)), so if you previously completed [Part 1](../oifp-fabric/README.md) you will either need to recreate your Fabric client node VPC (i.e. delete the CloudFormation stack you created in step 3 of [Part 1](../oifp-fabric/README.md)), or you can simply create a new Fabric network starting from step 1 of [Part 1](../oifp-fabric/README.md).
 
 If you have multiple peer nodes for your member, the Fabric discovery service will discover them and display them in the Explorer dashboard.
 
@@ -46,13 +46,13 @@ On the Fabric client node.
 
 From Cloud9, SSH into the Fabric client node. The key (i.e. the .PEM file) should be in your home directory. 
 The DNS of the Fabric client node EC2 instance can be found in the output of the AWS CloudFormation stack you 
-created in [Part 1](../ngo-fabric/README.md)
+created in [Part 1](../oifp-fabric/README.md)
 
 ```
 ssh ec2-user@<dns of EC2 instance> -i ~/<Fabric network name>-keypair.pem
 ```
 
-You should have already cloned this repo in [Part 1](../ngo-fabric/README.md)
+You should have already cloned this repo in [Part 1](../oifp-fabric/README.md)
 
 ```
 cd ~
@@ -60,15 +60,15 @@ git clone https://github.com/aws-samples/non-profit-blockchain.git
 ```
 
 You will need to set the context before carrying out any Fabric CLI commands. We do this 
-using the export files that were generated for us in [Part 1](../ngo-fabric/README.md)
+using the export files that were generated for us in [Part 1](../oifp-fabric/README.md)
 
 Source the file, so the exports are applied to your current session. If you exit the SSH 
 session and re-connect, you'll need to source the file again. The `source` command below
 will print out the values of the key ENV variables. Make sure they are all populated. If
-they are not, follow step 4 in [Part 1](../ngo-fabric/README.md) to repopulate them.
+they are not, follow step 4 in [Part 1](../oifp-fabric/README.md) to repopulate them.
 
 ```
-cd ~/non-profit-blockchain/ngo-fabric
+cd ~/non-profit-blockchain/oifp-fabric
 source fabric-exports.sh
 source ~/peer-exports.sh 
 ```
@@ -236,7 +236,7 @@ Hyperledger Explorer provides a RESTful API that you can use to interact with th
 
 For example:
 
-http://ngo-hyper-Blockcha-1O59LKQ979CAF-726033826.us-east-1.elb.amazonaws.com/api-docs
+http://oifp-hyper-Blockcha-1O59LKQ979CAF-726033826.us-east-1.elb.amazonaws.com/api-docs
 
 To use Swagger for live testing of the API, you will need to update the host property in swagger.json, pointing to your ELB DNS:
 
@@ -264,10 +264,10 @@ Update the 'servers' property, using the same ELB DNS as in step 5. Make sure yo
         },
         "servers": [
                 {
-                        "url": "http://ngo-hyper-Blockcha-1O59LKQ979CAF-726033826.us-east-1.elb.amazonaws.com"
+                        "url": "http://oifp-hyper-Blockcha-1O59LKQ979CAF-726033826.us-east-1.elb.amazonaws.com"
                 },
                 {
-                        "url": "https://ngo-hyper-Blockcha-1O59LKQ979CAF-726033826.us-east-1.elb.amazonaws.com"
+                        "url": "https://oifp-hyper-Blockcha-1O59LKQ979CAF-726033826.us-east-1.elb.amazonaws.com"
                 }
         ],
 ```
@@ -304,11 +304,11 @@ Copy the value of 'token', then click the 'Authorize' link at the top of the Swa
 
 You now have Hyperledger Explorer running and are able to use this to view the configuration and activity in your Fabric network. You also have access to the Explorer REST API.   
 
-* [Part 1:](../ngo-fabric/README.md) Start the workshop by building the Hyperledger Fabric blockchain network using Amazon Managed Blockchain.
-* [Part 2:](../ngo-chaincode/README.md) Deploy the non-profit chaincode. 
-* [Part 3:](../ngo-rest-api/README.md) Run the RESTful API server. 
-* [Part 4:](../ngo-ui/README.md) Run the application. 
+* [Part 1:](../oifp-fabric/README.md) Start the workshop by building the Hyperledger Fabric blockchain network using Amazon Managed Blockchain.
+* [Part 2:](../oifp-chaincode/README.md) Deploy the non-profit chaincode. 
+* [Part 3:](../oifp-rest-api/README.md) Run the RESTful API server. 
+* [Part 4:](../oifp-ui/README.md) Run the application. 
 * [Part 5:](../new-member/README.md) Add a new member to the network. 
-* [Part 6:](../ngo-lambda/README.md) Read and write to the blockchain with Amazon API Gateway and AWS Lambda.
-* [Part 7:](../ngo-events/README.md) Use blockchain events to notify users of NGO donations.
+* [Part 6:](../oifp-lambda/README.md) Read and write to the blockchain with Amazon API Gateway and AWS Lambda.
+* [Part 7:](../oifp-events/README.md) Use blockchain events to notify users of OIFP investments.
 * [Part 8:](../blockchain-explorer/README.md) Deploy Hyperledger Explorer. 

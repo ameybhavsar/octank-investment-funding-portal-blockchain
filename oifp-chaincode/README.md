@@ -1,21 +1,21 @@
-# Part 2: Non-profit (NGO) Chaincode
+# Part 2: Non-profit (oifp) Chaincode
 
-The instructions in this README will help you to install the NGO chaincode on the
-Fabric network you created in [Part 1](../ngo-fabric/README.md)
+The instructions in this README will help you to install the oifp chaincode on the
+Fabric network you created in [Part 1](../oifp-fabric/README.md)
 
-All steps are carried out on the Fabric client node you created in [Part 1](../ngo-fabric/README.md)
+All steps are carried out on the Fabric client node you created in [Part 1](../oifp-fabric/README.md)
 
 ## Pre-requisites
 
 From Cloud9, SSH into the Fabric client node. The key (i.e. the .PEM file) should be in your home directory. 
 The DNS of the Fabric client node EC2 instance can be found in the output of the CloudFormation stack you 
-created in [Part 1](../ngo-fabric/README.md)
+created in [Part 1](../oifp-fabric/README.md)
 
 ```
 ssh ec2-user@<dns of EC2 instance> -i ~/<Fabric network name>-keypair.pem
 ```
 
-You should have already cloned this repo in [Part 1](../ngo-fabric/README.md)
+You should have already cloned this repo in [Part 1](../oifp-fabric/README.md)
 
 ```
 cd ~
@@ -23,15 +23,15 @@ git clone https://github.com/aws-samples/non-profit-blockchain.git
 ```
 
 You will need to set the context before carrying out any Fabric CLI commands. We do this 
-using the export files that were generated for us in [Part 1](../ngo-fabric/README.md)
+using the export files that were generated for us in [Part 1](../oifp-fabric/README.md)
 
 Source the file, so the exports are applied to your current session. If you exit the SSH 
 session and re-connect, you'll need to source the file again. The `source` command below
 will print out the values of the key ENV variables. Make sure they are all populated. If
-they are not, follow Step 4 in [Part 1](../ngo-fabric/README.md) to repopulate them.
+they are not, follow Step 4 in [Part 1](../oifp-fabric/README.md) to repopulate them.
 
 ```
-cd ~/non-profit-blockchain/ngo-fabric
+cd ~/non-profit-blockchain/oifp-fabric
 source fabric-exports.sh
 source ~/peer-exports.sh 
 ```
@@ -52,8 +52,8 @@ chaincode into this folder will make it accessible inside the Fabric CLI contain
 
 ```
 cd ~
-mkdir -p ./fabric-samples/chaincode/ngo
-cp ./non-profit-blockchain/ngo-chaincode/src/* ./fabric-samples/chaincode/ngo
+mkdir -p ./fabric-samples/chaincode/oifp
+cp ./non-profit-blockchain/oifp-chaincode/src/* ./fabric-samples/chaincode/oifp
 ```
 
 ## Step 2 - Install the chaincode on your peer
@@ -67,7 +67,7 @@ Notice we are using the `-l node` flag, as our chaincode is written in Node.js.
 ```
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
     -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" -e "CORE_PEER_ADDRESS=$PEER"  \
-    cli peer chaincode install -n ngo -l node -v v0 -p /opt/gopath/src/github.com/ngo
+    cli peer chaincode install -n oifp -l node -v v0 -p /opt/gopath/src/github.com/oifp
 ```
 
 Expected response:
@@ -75,7 +75,7 @@ Expected response:
 ```
 2018-11-15 06:39:47.625 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
 2018-11-15 06:39:47.625 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
-2018-11-15 06:39:47.625 UTC [container] WriteFolderToTarPackage -> INFO 003 rootDirectory = /opt/gopath/src/github.com/ngo
+2018-11-15 06:39:47.625 UTC [container] WriteFolderToTarPackage -> INFO 003 rootDirectory = /opt/gopath/src/github.com/oifp
 2018-11-15 06:39:47.636 UTC [chaincodeCmd] install -> INFO 004 Installed remotely response:<status:200 payload:"OK" >
 ```
 
@@ -92,7 +92,7 @@ It can take up to 30 seconds to instantiate chaincode on the channel.
 ```
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
     -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" -e "CORE_PEER_ADDRESS=$PEER"  \
-    cli peer chaincode instantiate -o $ORDERER -C mychannel -n ngo -v v0 -c '{"Args":["init"]}' --cafile /opt/home/managedblockchain-tls-chain.pem --tls
+    cli peer chaincode instantiate -o $ORDERER -C mychannel -n oifp -v v0 -c '{"Args":["init"]}' --cafile /opt/home/managedblockchain-tls-chain.pem --tls
 ```
 
 Expected response:
@@ -110,7 +110,7 @@ Query all donors
 ```
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
     -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \
-    cli peer chaincode query -C mychannel -n ngo -c '{"Args":["queryAllDonors"]}'
+    cli peer chaincode query -C mychannel -n oifp -c '{"Args":["queryAllDonors"]}'
 ```
 
 Expected response:
@@ -127,12 +127,12 @@ Let's add a couple of donors to Fabric. Execute both of these transactions below
 ```
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
     -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \
-    cli peer chaincode invoke -C mychannel -n ngo \
+    cli peer chaincode invoke -C mychannel -n oifp \
     -c  '{"Args":["createDonor","{\"donorUserName\": \"edge\", \"email\": \"edge@def.com\", \"registeredDate\": \"2018-10-22T11:52:20.182Z\"}"]}' -o $ORDERER --cafile /opt/home/managedblockchain-tls-chain.pem --tls
 
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
     -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \
-    cli peer chaincode invoke -C mychannel -n ngo \
+    cli peer chaincode invoke -C mychannel -n oifp \
     -c  '{"Args":["createDonor","{\"donorUserName\": \"braendle\", \"email\": \"braendle@def.com\", \"registeredDate\": \"2018-11-05T14:31:20.182Z\"}"]}' -o $ORDERER --cafile /opt/home/managedblockchain-tls-chain.pem --tls
 ```
 
@@ -142,25 +142,25 @@ Query all donors
 ```
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
     -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \
-    cli peer chaincode query -C mychannel -n ngo -c '{"Args":["queryAllDonors"]}'
+    cli peer chaincode query -C mychannel -n oifp -c '{"Args":["queryAllDonors"]}'
 ```
 
 Query a specific donor
 ```
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
     -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \
-    cli peer chaincode query -C mychannel -n ngo -c '{"Args":["queryDonor","{\"donorUserName\": \"edge\"}"]}'
+    cli peer chaincode query -C mychannel -n oifp -c '{"Args":["queryDonor","{\"donorUserName\": \"edge\"}"]}'
 ```
 
 ## Move on to Part 3
 The workshop instructions can be found in the README files in parts 1-4:
 
-* [Part 1:](../ngo-fabric/README.md) Start the workshop by building the Hyperledger Fabric blockchain network using Amazon Managed Blockchain.
-* [Part 2:](../ngo-chaincode/README.md) Deploy the non-profit chaincode. 
-* [Part 3:](../ngo-rest-api/README.md) Run the RESTful API server. 
-* [Part 4:](../ngo-ui/README.md) Run the application. 
+* [Part 1:](../oifp-fabric/README.md) Start the workshop by building the Hyperledger Fabric blockchain network using Amazon Managed Blockchain.
+* [Part 2:](../oifp-chaincode/README.md) Deploy the non-profit chaincode. 
+* [Part 3:](../oifp-rest-api/README.md) Run the RESTful API server. 
+* [Part 4:](../oifp-ui/README.md) Run the application. 
 * [Part 5:](../new-member/README.md) Add a new member to the network. 
-* [Part 6:](../ngo-lambda/README.md) Read and write to the blockchain with Amazon API Gateway and AWS Lambda.
-* [Part 7:](../ngo-events/README.md) Use blockchain events to notify users of NGO donations.
+* [Part 6:](../oifp-lambda/README.md) Read and write to the blockchain with Amazon API Gateway and AWS Lambda.
+* [Part 7:](../oifp-events/README.md) Use blockchain events to notify users of oifp donations.
 * [Part 8:](../blockchain-explorer/README.md) Deploy Hyperledger Explorer. 
-* [Part 9:](../ngo-identity/README.md) Integrating blockchain users with Amazon Cognito.
+* [Part 9:](../oifp-identity/README.md) Integrating blockchain users with Amazon Cognito.

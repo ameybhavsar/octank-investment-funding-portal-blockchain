@@ -38,7 +38,7 @@ In your Cloud9 terminal window:
 ```
 export REGION=us-east-1
 export STACKNAME=non-profit-amb
-cd ~/non-profit-blockchain/ngo-fabric
+cd ~/non-profit-blockchain/oifp-fabric
 ./amb.sh
 ```
 
@@ -79,7 +79,7 @@ In Cloud9:
 
 ```
 export REGION=us-east-1
-cd ~/non-profit-blockchain/ngo-fabric
+cd ~/non-profit-blockchain/oifp-fabric
 ./vpc-client-node.sh
 ```
 
@@ -119,7 +119,7 @@ to your current session. If you exit the SSH session and re-connect, you'll need
 
 ```
 export REGION=us-east-1
-cd ~/non-profit-blockchain/ngo-fabric
+cd ~/non-profit-blockchain/oifp-fabric
 cp templates/exports-template.sh fabric-exports.sh
 source fabric-exports.sh
 source ~/peer-exports.sh 
@@ -167,7 +167,7 @@ Some final copying of the certificates is necessary:
 ```
 mkdir -p /home/ec2-user/admin-msp/admincerts
 cp ~/admin-msp/signcerts/* ~/admin-msp/admincerts/
-cd ~/non-profit-blockchain/ngo-fabric
+cd ~/non-profit-blockchain/oifp-fabric
 ```
 
 ## Step 5 - Update the configtx channel configuration
@@ -176,7 +176,7 @@ On the Fabric client node.
 Update the configtx channel configuration. The Name and ID fields should be updated with the member ID from Managed Blockchain.
 
 ```
-cp ~/non-profit-blockchain/ngo-fabric/configtx.yaml ~
+cp ~/non-profit-blockchain/oifp-fabric/configtx.yaml ~
 sed -i "s|__MEMBERID__|$MEMBERID|g" ~/configtx.yaml
 ```
 
@@ -388,12 +388,12 @@ You should see:
 ## Move on to Part 2
 The workshop instructions can be found in the README files in parts 1-4:
 
-* [Part 1:](../ngo-fabric/README.md) Start the workshop by building the Hyperledger Fabric blockchain network using Amazon Managed Blockchain.
-* [Part 2:](../ngo-chaincode/README.md) Deploy the non-profit chaincode. 
-* [Part 3:](../ngo-rest-api/README.md) Run the RESTful API server. 
-* [Part 4:](../ngo-ui/README.md) Run the application. 
+* [Part 1:](../oifp-fabric/README.md) Start the workshop by building the Hyperledger Fabric blockchain network using Amazon Managed Blockchain.
+* [Part 2:](../oifp-chaincode/README.md) Deploy the non-profit chaincode. 
+* [Part 3:](../oifp-rest-api/README.md) Run the RESTful API server. 
+* [Part 4:](../oifp-ui/README.md) Run the application. 
 * [Part 5:](../new-member/README.md) Add a new member to the network. 
-* [Part 6:](../ngo-lambda/README.md) Read and write to the blockchain with AWS Lambda.
-* [Part 7:](../ngo-events/README.md) Use blockchain events to notify users of NGO donations.
+* [Part 6:](../oifp-lambda/README.md) Read and write to the blockchain with AWS Lambda.
+* [Part 7:](../oifp-events/README.md) Use blockchain events to notify users of oifp donations.
 * [Part 8:](../blockchain-explorer/README.md) Deploy Hyperledger Explorer. 
-* [Part 9:](../ngo-identity/README.md) Integrating blockchain users with Amazon Cognito.
+* [Part 9:](../oifp-identity/README.md) Integrating blockchain users with Amazon Cognito.

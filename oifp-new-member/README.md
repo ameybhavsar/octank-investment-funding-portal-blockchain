@@ -1,7 +1,7 @@
 # Part 5: Adding a new member to a Fabric network on Amazon Managed Blockchain
 
-Part 5 will help you to add a new member running in a different AWS Account to the Fabric network you created in [Part 1](../ngo-fabric/README.md). After adding the new member you will create a peer node for the member and join the peer
-node to the channel created in [Part 1](../ngo-fabric/README.md). The new peer node will receive the blocks that exist
+Part 5 will help you to add a new member running in a different AWS Account to the Fabric network you created in [Part 1](../oifp-fabric/README.md). After adding the new member you will create a peer node for the member and join the peer
+node to the channel created in [Part 1](../oifp-fabric/README.md). The new peer node will receive the blocks that exist
 on the new channel and will build its own copy of the ledger. We will also configure the Fabric network so the new
 member can take part in endorsing transactions.
 
@@ -46,15 +46,15 @@ In this case a new channel configuration can be created which contains both new 
 This scenario is simpler as it does not involve updating the existing channel configuration.
 
 ## Pre-requisites - Account A, the network creator
-There are multiple parts to the workshop. Before starting on Part 5, a network creator should have completed [Part 1](../ngo-fabric/README.md). You need an existing Fabric network before starting Part 5. The network creator would have also created a peer node under a member belonging to Account A.
+There are multiple parts to the workshop. Before starting on Part 5, a network creator should have completed [Part 1](../oifp-fabric/README.md). You need an existing Fabric network before starting Part 5. The network creator would have also created a peer node under a member belonging to Account A.
 
-In the AWS account where you create the [Part 1](../ngo-fabric/README.md) Fabric network, use Cloud9 to SSH into the Fabric client node. The key (i.e. the .PEM file) should be in your home directory. The DNS of the Fabric client node EC2 instance can be found in the output of the CloudFormation stack you created in [Part 1](../ngo-fabric/README.md)
+In the AWS account where you create the [Part 1](../oifp-fabric/README.md) Fabric network, use Cloud9 to SSH into the Fabric client node. The key (i.e. the .PEM file) should be in your home directory. The DNS of the Fabric client node EC2 instance can be found in the output of the CloudFormation stack you created in [Part 1](../oifp-fabric/README.md)
 
 ```
 ssh ec2-user@<dns of EC2 instance> -i ~/<Fabric network name>-keypair.pem
 ```
 
-You should have already cloned this repo in [Part 1](../ngo-fabric/README.md)
+You should have already cloned this repo in [Part 1](../oifp-fabric/README.md)
 
 ```
 cd ~
@@ -62,15 +62,15 @@ git clone https://github.com/aws-samples/non-profit-blockchain.git
 ```
 
 You will need to set the context before carrying out any Fabric CLI commands. We do this 
-using the export files that were generated for us in [Part 1](../ngo-fabric/README.md)
+using the export files that were generated for us in [Part 1](../oifp-fabric/README.md)
 
 Source the file, so the exports are applied to your current session. If you exit the SSH 
 session and re-connect, you'll need to source the file again. The `source` command below
 will print out the values of the key ENV variables. Make sure they are all populated. If
-they are not, follow Step 4 in [Part 1](../ngo-fabric/README.md) to repopulate them:
+they are not, follow Step 4 in [Part 1](../oifp-fabric/README.md) to repopulate them:
 
 ```
-cd ~/non-profit-blockchain/ngo-fabric
+cd ~/non-profit-blockchain/oifp-fabric
 source fabric-exports.sh
 ```
 
@@ -122,13 +122,13 @@ In the Amazon Managed Blockchain Console: https://console.aws.amazon.com/managed
 Once the Fabric network and member for Account B have an ACTIVE status, it’s time to create a Fabric peer node. Each member on a network creates their own peer nodes, so select the member you created above and click the link to create a peer node. Select an instance type, the amount of storage for the node, and create the peer node.
 
 ## Step 4: Account B creates a Fabric client node
-These steps are identical to those performed by Account A when the Fabric network was originally created. See Step 3 in [Part 1:](../ngo-fabric/README.md). The steps have been replicated below.
+These steps are identical to those performed by Account A when the Fabric network was originally created. See Step 3 in [Part 1:](../oifp-fabric/README.md). The steps have been replicated below.
 
 In your Cloud9 terminal window.
 
 Create the Fabric client node, which will host the Fabric CLI. You will use the CLI to administer
 the Fabric network. The Fabric client node will be created in its own VPC, with VPC endpoints 
-pointing to the Fabric network created by the network creator in [Part 1](../ngo-fabric/README.md). 
+pointing to the Fabric network created by the network creator in [Part 1](../oifp-fabric/README.md). 
 CloudFormation will be used to create the Fabric client node, the VPC and the VPC endpoints.
 
 The CloudFormation template requires a number of parameter values. We'll make sure these 
@@ -157,7 +157,7 @@ will check whether the keypair exists before creating it. I don't want to overwr
 keypairs you have, so just ignore this error and let the script continue:
 
 ```
-cd ~/non-profit-blockchain/ngo-fabric
+cd ~/non-profit-blockchain/oifp-fabric
 ./vpc-client-node.sh
 ```
 
@@ -193,7 +193,7 @@ git clone https://github.com/aws-samples/non-profit-blockchain.git
 Create the file that includes the ENV export values that define your Fabric network configuration.
 
 ```
-cd ~/non-profit-blockchain/ngo-fabric
+cd ~/non-profit-blockchain/oifp-fabric
 cp templates/exports-template.sh fabric-exports.sh
 vi fabric-exports.sh
 ```
@@ -206,7 +206,7 @@ Source the file, so the exports are applied to your current session. If you exit
 session and re-connect, you'll need to source the file again.
 
 ```
-cd ~/non-profit-blockchain/ngo-fabric
+cd ~/non-profit-blockchain/oifp-fabric
 source fabric-exports.sh
 ```
 
@@ -540,7 +540,7 @@ $ docker exec cli ls -lt /tmp/$NEWMEMBERID.json
 ```
 
 ### Fetch the latest configuration block from the channel
-The channel creation block for the channel was created in [Part 1:](../ngo-fabric/README.md), but just in case the configuration was updated at some point, we will pull the latest version of the config block directly from the channel. 
+The channel creation block for the channel was created in [Part 1:](../oifp-fabric/README.md), but just in case the configuration was updated at some point, we will pull the latest version of the config block directly from the channel. 
 
 ```
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem"  \
@@ -670,7 +670,7 @@ You can now join a peer owned by the new member to the channel.
 ## Step 12: Account A shares the genesis block for the channel with Account B
 On the Fabric client node in Account A.
 
-Before the peer node in Account B joins the channel, it must be able to connect to the Ordering Service managed by Amazon Managed Blockchain. The peer obtains the Ordering Service endpoint from the channel genesis block. The file mychannel.block ('mychannel' refers to the channel name and may differ if you have changed the channel name) would have been created when you first created the channel in [Part 1](../ngo-fabric/README.md). Make sure the mychannel.block file is available to the peer node in Account B.
+Before the peer node in Account B joins the channel, it must be able to connect to the Ordering Service managed by Amazon Managed Blockchain. The peer obtains the Ordering Service endpoint from the channel genesis block. The file mychannel.block ('mychannel' refers to the channel name and may differ if you have changed the channel name) would have been created when you first created the channel in [Part 1](../oifp-fabric/README.md). Make sure the mychannel.block file is available to the peer node in Account B.
 
 On the Fabric client node in Account A, copy the channel genesis from from Account A to S3:
 
@@ -799,7 +799,7 @@ docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt
 
 We can resolve the invalid transaction in two ways:
 
-1. Send the `peer chaincode invoke` transaction to peer nodes in Account A and Account B. Since Account A is able to endorse transactions, the statement below should work. It will obtain endorsements from peers in Account A and Account B. When the endorsement policy is checked during the validation step, it will succeed as the transaction has an endorsement from a member included in the policy. If you review [Part 1](../ngo-fabric/README.md) where we instantiated the chaincode, we did not provide an endorsement policy, so the default endorsement policy would have been applied. In this case it would be `“OR(‘Org1.member’)”`.
+1. Send the `peer chaincode invoke` transaction to peer nodes in Account A and Account B. Since Account A is able to endorse transactions, the statement below should work. It will obtain endorsements from peers in Account A and Account B. When the endorsement policy is checked during the validation step, it will succeed as the transaction has an endorsement from a member included in the policy. If you review [Part 1](../oifp-fabric/README.md) where we instantiated the chaincode, we did not provide an endorsement policy, so the default endorsement policy would have been applied. In this case it would be `“OR(‘Org1.member’)”`.
 
 In the statement below, replace the values of `peerAddresses` with the addresses of the two peers nodes, one from Account A and the other from Account B. You can obtain the peer address endpoints from the Managed Blockchain console.
 
@@ -894,12 +894,12 @@ Rerunning the query should confirm that the peer node in Account B can now endor
 ## The workshop sections
 The workshop instructions can be found in the README files in parts 1-4:
 
-* [Part 1:](../ngo-fabric/README.md) Start the workshop by building the Hyperledger Fabric blockchain network using Amazon Managed Blockchain.
-* [Part 2:](../ngo-chaincode/README.md) Deploy the non-profit chaincode. 
-* [Part 3:](../ngo-rest-api/README.md) Run the RESTful API server. 
-* [Part 4:](../ngo-ui/README.md) Run the application. 
+* [Part 1:](../oifp-fabric/README.md) Start the workshop by building the Hyperledger Fabric blockchain network using Amazon Managed Blockchain.
+* [Part 2:](../oifp-chaincode/README.md) Deploy the non-profit chaincode. 
+* [Part 3:](../oifp-rest-api/README.md) Run the RESTful API server. 
+* [Part 4:](../oifp-ui/README.md) Run the application. 
 * [Part 5:](../new-member/README.md) Add a new member to the network. 
-* [Part 6:](../ngo-lambda/README.md) Read and write to the blockchain with Amazon API Gateway and AWS Lambda.
-* [Part 7:](../ngo-events/README.md) Use blockchain events to notify users of NGO donations.
+* [Part 6:](../oifp-lambda/README.md) Read and write to the blockchain with Amazon API Gateway and AWS Lambda.
+* [Part 7:](../oifp-events/README.md) Use blockchain events to notify users of oifp donations.
 * [Part 8:](../blockchain-explorer/README.md) Deploy Hyperledger Explorer. 
-* [Part 9:](../ngo-identity/README.md) Integrating blockchain users with Amazon Cognito.
+* [Part 9:](../oifp-identity/README.md) Integrating blockchain users with Amazon Cognito.

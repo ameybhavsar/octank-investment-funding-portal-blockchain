@@ -3,15 +3,15 @@
 Part 6 will show you how to publish a REST API with API Gateway and Lambda that invokes chaincode on a Hyperledger Fabric blockchain network running on Amazon Managed Blockchain.  You will use the NodeJS Hyperledger Fabric SDK within the Lambda function to interface with the blockchain.
 
 ## Pre-requisites
- There are multiple parts to the workshop.  Before starting on Part 6, you should have completed [Part 1](../ngo-fabric/README.md) and [Part 2](../ngo-chaincode/README.md).
+ There are multiple parts to the workshop.  Before starting on Part 6, you should have completed [Part 1](../oifp-fabric/README.md) and [Part 2](../oifp-chaincode/README.md).
 
- In the AWS account where you [created the Fabric network](../ngo-fabric/README.md), use Cloud9 to SSH into the Fabric client node. The key (i.e. the .PEM file) should be in your home directory. The DNS of the Fabric client node EC2 instance can be found in the output of the CloudFormation stack you created in [Part 1](../ngo-fabric/README.md).
+ In the AWS account where you [created the Fabric network](../oifp-fabric/README.md), use Cloud9 to SSH into the Fabric client node. The key (i.e. the .PEM file) should be in your home directory. The DNS of the Fabric client node EC2 instance can be found in the output of the CloudFormation stack you created in [Part 1](../oifp-fabric/README.md).
 
 ```
 ssh ec2-user@<dns of EC2 instance> -i ~/<Fabric network name>-keypair.pem
 ```
 
-You should have already cloned this repo in [Part 1](../ngo-fabric/README.md).
+You should have already cloned this repo in [Part 1](../oifp-fabric/README.md).
 
 ```
 cd ~
@@ -19,15 +19,15 @@ git clone https://github.com/aws-samples/non-profit-blockchain.git
 ```
 
 You will need to set the context before carrying out any Fabric CLI commands. You do this 
-using the export files that were generated for us in [Part 1](../ngo-fabric/README.md).
+using the export files that were generated for us in [Part 1](../oifp-fabric/README.md).
 
 Source the file, so the exports are applied to your current session. If you exit the SSH 
 session and re-connect, you'll need to source the file again. The `source` command below
 will print out the values of the key ENV variables. Make sure they are all populated. If
-they are not, follow Step 4 in [Part 1](../ngo-fabric/README.md) to repopulate them:
+they are not, follow Step 4 in [Part 1](../oifp-fabric/README.md) to repopulate them:
 
 ```
-cd ~/non-profit-blockchain/ngo-fabric
+cd ~/non-profit-blockchain/oifp-fabric
 source fabric-exports.sh
 source ~/peer-exports.sh 
 ```
@@ -60,7 +60,7 @@ export FABRICUSERPASSWORD=Welcome123
 Execute this script to register and enroll the Fabric user, and upload the credentials to AWS Secrets Manager.
 
 ```
-~/non-profit-blockchain/ngo-lambda/createFabricUser.sh
+~/non-profit-blockchain/oifp-lambda/createFabricUser.sh
 ```
 
 ## Step 2 - Deploy the Lambda function and API Gateway
@@ -72,9 +72,9 @@ We will also need to create a new VPC Endpoint to allow the VPC hosting our Lamb
 Execute the following commands to create the Lambda function, VPC Endpoint and the API Gateway. CloudFormation will be used to create these resources. This script will create an S3 bucket to store the Lambda artifacts, and this bucket must be globally unique.  Modify the value of `BUCKETNAME` if you need to make it globally unique.
 
 ```
-export BUCKETNAME=`echo "ngo-fabric-lambda-$(date +%N)" | tr '[:upper:]' '[:lower:]'`
+export BUCKETNAME=`echo "oifp-fabric-lambda-$(date +%N)" | tr '[:upper:]' '[:lower:]'`
 export LAMBDANAME=`echo "$NETWORKNAME-fabric-lambda" | tr '[:upper:]' '[:lower:]'`
-~/non-profit-blockchain/ngo-lambda/createLambda.sh
+~/non-profit-blockchain/oifp-lambda/createLambda.sh
 ```
 
 If this is successful you should see a message indicating:
@@ -94,7 +94,7 @@ To test from the cli, you will execute the commands below.  The output of each c
 
 First, call the `createDonor` chaincode function to create the donor "melissa".
 ```
-aws lambda invoke --function-name $LAMBDANAME --payload "{\"fabricUsername\":\"$FABRICUSER\",\"functionType\":\"invoke\",\"chaincodeFunction\":\"createDonor\",\"chaincodeFunctionArgs\":{\"donorUserName\":\"melissa\",\"email\":\"melissa@melissasngo.org\"}}" --region $REGION /tmp/lambda-output-createDonor.txt
+aws lambda invoke --function-name $LAMBDANAME --payload "{\"fabricUsername\":\"$FABRICUSER\",\"functionType\":\"invoke\",\"chaincodeFunction\":\"createDonor\",\"chaincodeFunctionArgs\":{\"donorUserName\":\"melissa\",\"email\":\"melissa@melissasoifp.org\"}}" --region $REGION /tmp/lambda-output-createDonor.txt
 cat /tmp/lambda-output-createDonor.txt
 ```
 
@@ -139,12 +139,12 @@ curl -s -X GET "$APIURL/donors"
 
 You now have a REST API managed by API Gateway that is invoking a Lambda function to execute transactions on the blockchain.  To expose additional chaincode functions within API Gateway, you would add API Gateway routes to support them, and continue routing to the same Lambda function.   
 
-* [Part 1:](../ngo-fabric/README.md) Start the workshop by building the Hyperledger Fabric blockchain network using Amazon Managed Blockchain.
-* [Part 2:](../ngo-chaincode/README.md) Deploy the non-profit chaincode. 
-* [Part 3:](../ngo-rest-api/README.md) Run the RESTful API server. 
-* [Part 4:](../ngo-ui/README.md) Run the application. 
+* [Part 1:](../oifp-fabric/README.md) Start the workshop by building the Hyperledger Fabric blockchain network using Amazon Managed Blockchain.
+* [Part 2:](../oifp-chaincode/README.md) Deploy the non-profit chaincode. 
+* [Part 3:](../oifp-rest-api/README.md) Run the RESTful API server. 
+* [Part 4:](../oifp-ui/README.md) Run the application. 
 * [Part 5:](../new-member/README.md) Add a new member to the network. 
-* [Part 6:](../ngo-lambda/README.md) Read and write to the blockchain with Amazon API Gateway and AWS Lambda.
-* [Part 7:](../ngo-events/README.md) Use blockchain events to notify users of NGO donations.
+* [Part 6:](../oifp-lambda/README.md) Read and write to the blockchain with Amazon API Gateway and AWS Lambda.
+* [Part 7:](../oifp-events/README.md) Use blockchain events to notify users of oifp donations.
 * [Part 8:](../blockchain-explorer/README.md) Deploy Hyperledger Explorer. 
-* [Part 9:](../ngo-identity/README.md) Integrating blockchain users with Amazon Cognito.
+* [Part 9:](../oifp-identity/README.md) Integrating blockchain users with Amazon Cognito.

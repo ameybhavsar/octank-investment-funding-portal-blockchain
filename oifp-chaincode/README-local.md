@@ -1,6 +1,6 @@
-# NGO on Hyperledger Fabric
+# oifp on Hyperledger Fabric
 
-The chaincode in ngo.js supports donors donating funds to an NGO (i.e. non-profit), while tracking 
+The chaincode in oifp.js supports donors donating funds to an oifp (i.e. non-profit), while tracking 
 the spending of those funds and the allocation of the spending records against each donation. Donors
 are therefore able to track how their donations are being spent. The Fabric Chaincode is written in Node.js.
 
@@ -67,7 +67,7 @@ In your terminal window, change to the directory containing the chaincode:
 
 ```
 cd ~
-cd non-profit-blockchain/ngo-chaincode
+cd non-profit-blockchain/oifp-chaincode
 ```
 
 Update the REPODIR variable in the statements below to match the location of your fabric-samples repo, and
@@ -76,23 +76,23 @@ then execute all the commands in your terminal window:
 If installing on Mac:
 
 ```
-cd ~/Documents/apps/non-profit-blockchain/ngo-chaincode
+cd ~/Documents/apps/non-profit-blockchain/oifp-chaincode
 REPODIR=/Users/edgema/Documents/apps/fabric-samples
-rm $REPODIR/chaincode/ngo/*
-mkdir -p $REPODIR/chaincode/ngo
-cp src/package.json $REPODIR/chaincode/ngo
-cp src/ngo.js $REPODIR/chaincode/ngo
+rm $REPODIR/chaincode/oifp/*
+mkdir -p $REPODIR/chaincode/oifp
+cp src/package.json $REPODIR/chaincode/oifp
+cp src/oifp.js $REPODIR/chaincode/oifp
 ```
 
 If installing on an EC2 instance:
 
 ```
-cd ~/non-profit-blockchain/ngo-chaincode
+cd ~/non-profit-blockchain/oifp-chaincode
 REPODIR=/home/ubuntu/fabric-samples
-rm $REPODIR/chaincode/ngo/*
-mkdir -p $REPODIR/chaincode/ngo
-cp src/package.json $REPODIR/chaincode/ngo
-cp src/ngo.js $REPODIR/chaincode/ngo
+rm $REPODIR/chaincode/oifp/*
+mkdir -p $REPODIR/chaincode/oifp
+cp src/package.json $REPODIR/chaincode/oifp
+cp src/oifp.js $REPODIR/chaincode/oifp
 ```
 
 To confirm that this is now visible inside your CLI container, exec into the container:
@@ -104,8 +104,8 @@ docker exec -it cli bash
 Inside the CLI container:
 
 ```
-# ls /opt/gopath/src/github.com/chaincode/ngo
-package.json  ngo.js
+# ls /opt/gopath/src/github.com/chaincode/oifp
+package.json  oifp.js
 ```
 
 You can repeat this process whenever you update the chaincode.
@@ -123,31 +123,31 @@ export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/pee
 export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
 export CORE_PEER_LOCALMSPID="Org1MSP"
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
-peer chaincode install -n ngo -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/ngo
+peer chaincode install -n oifp -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/oifp
 
 export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 export CORE_PEER_ADDRESS=peer1.org1.example.com:7051
 export CORE_PEER_LOCALMSPID="Org1MSP"
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
-peer chaincode install -n ngo -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/ngo
+peer chaincode install -n oifp -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/oifp
 
 export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
 export CORE_PEER_ADDRESS=peer0.org2.example.com:7051
 export CORE_PEER_LOCALMSPID="Org2MSP"
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
-peer chaincode install -n ngo -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/ngo
+peer chaincode install -n oifp -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/oifp
 
 export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
 export CORE_PEER_ADDRESS=peer1.org2.example.com:7051
 export CORE_PEER_LOCALMSPID="Org2MSP"
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt
-peer chaincode install -n ngo -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/ngo
+peer chaincode install -n oifp -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/oifp
 
 export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
 export CORE_PEER_LOCALMSPID="Org1MSP"
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
-peer chaincode upgrade -C mychannel -n ngo -l node -v 7.0 -c '{"Args":["init"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')" -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+peer chaincode upgrade -C mychannel -n oifp -l node -v 7.0 -c '{"Args":["init"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')" -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 ```
 
 ### peer0.org1
@@ -157,7 +157,7 @@ export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/pee
 export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
 export CORE_PEER_LOCALMSPID="Org1MSP"
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
-peer chaincode install -n ngo -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/ngo
+peer chaincode install -n oifp -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/oifp
 ```
 
 ### peer1.org1
@@ -167,7 +167,7 @@ export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/pee
 export CORE_PEER_ADDRESS=peer1.org1.example.com:7051
 export CORE_PEER_LOCALMSPID="Org1MSP"
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
-peer chaincode install -n ngo -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/ngo
+peer chaincode install -n oifp -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/oifp
 ```
 
 ### peer0.org2
@@ -177,7 +177,7 @@ export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/pee
 export CORE_PEER_ADDRESS=peer0.org2.example.com:7051
 export CORE_PEER_LOCALMSPID="Org2MSP"
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
-peer chaincode install -n ngo -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/ngo
+peer chaincode install -n oifp -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/oifp
 ```
 
 ### peer1.org2
@@ -187,7 +187,7 @@ export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/pee
 export CORE_PEER_ADDRESS=peer1.org2.example.com:7051
 export CORE_PEER_LOCALMSPID="Org2MSP"
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt
-peer chaincode install -n ngo -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/ngo
+peer chaincode install -n oifp -v 7.0 -l node -p /opt/gopath/src/github.com/chaincode/oifp
 ```
 
 ## Instantiate the chaincode
@@ -204,7 +204,7 @@ export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/pee
 export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
 export CORE_PEER_LOCALMSPID="Org1MSP"
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
-peer chaincode instantiate -C mychannel -n ngo -l node -v 7.0 -c '{"Args":["init"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')" -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+peer chaincode instantiate -C mychannel -n oifp -l node -v 7.0 -c '{"Args":["init"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')" -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 ```
 
 ### peer0.org1 - upgrade
@@ -214,7 +214,7 @@ export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/pee
 export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
 export CORE_PEER_LOCALMSPID="Org1MSP"
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
-peer chaincode upgrade -C mychannel -n ngo -l node -v 7.0 -c '{"Args":["init"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')" -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+peer chaincode upgrade -C mychannel -n oifp -l node -v 7.0 -c '{"Args":["init"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')" -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 ```
 
 Check that the chaincode was instantiated on the channel. You can run this after either an `upgrade` or an `instantiate` 
@@ -223,7 +223,7 @@ Check that the chaincode was instantiated on the channel. You can run this after
 # peer chaincode list --instantiated -C mychannel -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem 
 Get instantiated chaincodes on channel mychannel:
 Name: mycc, Version: 7.0, Path: /opt/gopath/src/github.com/chaincode/chaincode_example02/node/, Escc: escc, Vscc: vscc
-Name: ngo, Version: 7.0, Path: /opt/gopath/src/github.com/chaincode/ngo, Escc: escc, Vscc: vscc
+Name: oifp, Version: 7.0, Path: /opt/gopath/src/github.com/chaincode/oifp, Escc: escc, Vscc: vscc
 ```
 
 ## Invoke transactions to add participants in the network
@@ -247,9 +247,9 @@ curl couchdb0:5984/_all_dbs
 Check the docs in the db:
 
 ```
-curl couchdb0:5984/mychannel_ngo/_all_docs
-curl -X POST 'http://couchdb0:5984/mychannel_ngo/_find' -H 'Content-Type: application/json' --data '{"selector": {"docType": "donor"}}'
-curl -X POST 'http://couchdb0:5984/mychannel_ngo/_find' -H 'Content-Type: application/json' --data '{"selector": {"docType": "donation", "ngo":"1234"}}'
+curl couchdb0:5984/mychannel_oifp/_all_docs
+curl -X POST 'http://couchdb0:5984/mychannel_oifp/_find' -H 'Content-Type: application/json' --data '{"selector": {"docType": "donor"}}'
+curl -X POST 'http://couchdb0:5984/mychannel_oifp/_find' -H 'Content-Type: application/json' --data '{"selector": {"docType": "donation", "oifp":"1234"}}'
 ```
 
 ## Cleanup
